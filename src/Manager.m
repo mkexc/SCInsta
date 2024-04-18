@@ -80,6 +80,9 @@
 + (BOOL)unlimitedReplay {
     return [[NSUserDefaults standardUserDefaults] boolForKey:@"unlimited_replay"];
 }
++ (BOOL)noTypingStatus {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:@"no_typing_status"];
+}
 + (BOOL)noSeenReceipt {
     return [[NSUserDefaults standardUserDefaults] boolForKey:@"no_seen_receipt"];
 }

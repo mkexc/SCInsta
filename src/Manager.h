@@ -29,6 +29,7 @@
 + (BOOL)hideLastSeen;
 + (BOOL)noScreenShotAlert;
 + (BOOL)unlimitedReplay;
++ (BOOL)noTypingStatus;
 + (BOOL)noSeenReceipt;
 + (BOOL)FLEX;
 
