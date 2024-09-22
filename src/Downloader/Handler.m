@@ -59,18 +59,6 @@
     }] resume];
 }
 
-// Download Progress
-- (void)URLSession:(NSURLSession *)session
-                 downloadTask:(NSURLSessionDownloadTask *)downloadTask
-                 didWriteData:(int64_t)bytesWritten
-            totalBytesWritten:(int64_t)totalBytesWritten
-    totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
-{
-    float prog = (float)totalBytesWritten / (float)totalBytesExpectedToWrite;
-
-    [delegate downloadProgress:prog];
-}
-
 
 // Rename downloaded file & move from documents dir -> cache dir
 - (NSURL *)moveFileToCacheDir:(NSURL *)oldPath {

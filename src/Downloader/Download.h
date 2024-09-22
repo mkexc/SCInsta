@@ -1,8 +1,8 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
+#import "../../modules/JGProgressHUD/JGProgressHUD.h"
 
 // Cyclic imports
-@class JGProgressHUD;
 @class SCIDownloadHandler;
 
 @interface SCIDownload : NSObject
