@@ -28,7 +28,7 @@
         return;
     }
 
-    // Set class properties
+    // Set class propertiesi
     self.fileExtension = fileExtension;
 
     NSLog(@"[SCInsta] Download Handler: Starting download of url: %@", url);
@@ -57,6 +57,18 @@
         return;
         
     }] resume];
+}
+
+// Download Progress
+- (void)URLSession:(NSURLSession *)session
+                 downloadTask:(NSURLSessionDownloadTask *)downloadTask
+                 didWriteData:(int64_t)bytesWritten
+            totalBytesWritten:(int64_t)totalBytesWritten
+    totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
+{
+    float prog = (float)totalBytesWritten / (float)totalBytesExpectedToWrite;
+
+    [delegate downloadProgress:prog];
 }
 
 
