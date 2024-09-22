@@ -48,8 +48,19 @@
             photo = pagePhotoCell.pagePhotoPost.photo;
         }
 
+        if (!photo) {
+            [SCIUtils showErrorHUDWithDescription:@"Could not extract photo data from post"];
+
+            return;
+        }
+
         // Get highest quality photo link
         NSURL *photoURL = [photo imageURLForWidth:100000.00];
+        if (!photoURL) {
+            [SCIUtils showErrorHUDWithDescription:@"Could not extract photo url from post"];
+            
+            return;
+        }
 
         // Send photo url to downloader
         NSLog(@"[SCInsta] Save media: Sending url to downloader -> %@", photoURL.absoluteString);

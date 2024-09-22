@@ -328,6 +328,24 @@
 
 
 
+@interface IGFeedPhotoView : UICollectionViewCell
+@property (nonatomic, strong) id delegate;
+@property (nonatomic, strong) JGProgressHUD *hud; // new
+@property (nonatomic) BOOL *longPressAdded; // new
+- (void)addHandleLongPress; // new
+- (void)handleLongPress:(UILongPressGestureRecognizer *)sender; // new
+@end
+
+@interface IGFeedItemPhotoCell : UICollectionViewCell
+@end
+
+@interface IGFeedItemPhotoCellConfiguration : NSObject
+@end
+
+@interface IGFeedItemPagePhotoCell : UICollectionViewCell
+@property (nonatomic, strong) IGPostItem *pagePhotoPost;
+@end
+
 
 
 /////////////////////////////////////////////////////////////////////////////
