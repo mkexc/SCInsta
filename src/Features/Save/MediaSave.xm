@@ -7,28 +7,31 @@
 %hook IGFeedPhotoView
 %property (nonatomic, strong) JGProgressHUD *hud;
 
+%new - (void)printGestureRecognizersForView:(UIView *)view {
+    NSArray<UIGestureRecognizer *> *gestureRecognizers = view.gestureRecognizers;
+    if (gestureRecognizers.count > 0) {
+        NSLog(@"Gesture recognizers for view %@:", view);
+        for (UIGestureRecognizer *gestureRecognizer in gestureRecognizers) {
+            NSLog(@"- %@", gestureRecognizer);
+        }
+    }
+
+    for (UIView *subview in view.subviews) {
+        [self printGestureRecognizersForView:subview];
+    }
+}
+
 - (void)didMoveToWindow {
     %orig;
 
-    if ([SCIManager getPref:@"dw_videos"]) {
-        // Check if self already has a UILongPressGestureRecognizer
-        BOOL hasLongPressGestureRecognizer = false;
-        for (UIGestureRecognizer *recognizer in self.gestureRecognizers) {
-            if ([recognizer isKindOfClass:[UILongPressGestureRecognizer class]]) {
-                hasLongPressGestureRecognizer = true;
-                break;
-            }
-        }
+    // Create new long press gesture recognizer
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
+    longPress.minimumPressDuration = 0.5;
 
-        if (!hasLongPressGestureRecognizer) {
-            // Create new long press gesture recognizer
-            UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
-            longPress.minimumPressDuration = 0.5;
+    [self addGestureRecognizer:longPress];
+    NSLog(@"[SCInsta Test] added gesture recognizer");
 
-            [self addGestureRecognizer:longPress];
-            NSLog(@"[SCInsta Test] added gesture recognizer lol");
-        }
-    }
+    [self printGestureRecognizersForView:self];
 }
 
 %new - (void)handleLongPress:(UILongPressGestureRecognizer *)sender {
@@ -63,10 +66,8 @@
         }
 
         // Send photo url to downloader
-        NSLog(@"[SCInsta] Save media: Sending url to downloader -> %@", photoURL.absoluteString);
-
-        SCIDownload *dwManager = [[SCIDownload alloc] init];
-        [dwManager downloadFileWithURL:photoURL fileExtension:@"png"];
+        SCIDownloadDelegate *downloadDelegate = [[SCIDownloadDelegate alloc] init];
+        [downloadDelegate downloadFileWithURL:photoURL fileExtension:@"png"];
 
     }
 }

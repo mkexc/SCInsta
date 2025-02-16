@@ -282,7 +282,7 @@
 @interface IGFeedPhotoView : UICollectionViewCell
 @property (nonatomic, strong) id delegate;
 @property (nonatomic, strong) JGProgressHUD *hud; // new
-- (void)addHandleLongPress; // new
+- (void)printGestureRecognizersForView:(UIView *)view; // new
 - (void)handleLongPress:(UILongPressGestureRecognizer *)sender; // new
 @end
 
